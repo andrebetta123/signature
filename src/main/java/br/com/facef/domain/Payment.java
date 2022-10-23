@@ -8,29 +8,26 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 //@Getter @Setter @EqualsAndHashCode
-@JsonDeserialize(as = Payment.class)
+//@JsonDeserialize(as = Payment.class)
 public abstract class Payment implements Serializable{
 
 	private static final long serialVersionUID = 1248794860772538520L;
 
 	@Id
-	@JsonProperty("id")
 	private Integer id;
-	@JsonProperty("scheduleId")
 	private Integer scheduleId;
-	@JsonProperty("amount")
 	private BigDecimal amount;
-	@JsonProperty("paymentType")
 	private String paymentType;
-	@JsonProperty("paymentCode")
 	private String paymentCode;
+	@JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo", locale = "pt_Br")
 	private Date createdAt;
+	@JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo", locale = "pt_Br")
 	private Date updatedAt;
+
 	public Integer getId() {
 		return id;
 	}

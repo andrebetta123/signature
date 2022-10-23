@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.facef.config.PaymentQueue;
 import br.com.facef.domain.Payment;
+import br.com.facef.dtos.PaymentDTO;
 import br.com.facef.services.PaymentService;
 
 @RestController
@@ -28,6 +29,7 @@ public class SignatureController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Payment> findById(@PathVariable Integer id){
+		System.out.println("findById");
 		Payment payment = paymentService.findById(id);
 		return ResponseEntity.ok().body(payment);
 	}
@@ -39,14 +41,23 @@ public class SignatureController {
 		return ResponseEntity.ok().build();
 	}
 	
-	
 	@PostMapping(value = "/payment")
 	public ResponseEntity<Payment> insert(@RequestBody Payment obj){
+		System.out.println("Object" + obj.toString());
 		obj = paymentService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-		
+
+	@PostMapping(value = "/paymentNew")
+	public ResponseEntity<PaymentDTO> insertDTO(@RequestBody PaymentDTO obj){
+		System.out.println("Object" + obj.toString());
+//		obj = paymentService.insert(obj);
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(obj.getId()).toUri();
+//		return ResponseEntity.created(uri).build();
+        return ResponseEntity.ok().build();
+	}
+	
     @GetMapping
     public ResponseEntity<String> healthCheck() {
         return ResponseEntity.ok().build();
