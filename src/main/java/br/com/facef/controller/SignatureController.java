@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.facef.config.PaymentQueue;
 import br.com.facef.domain.Payment;
 import br.com.facef.services.PaymentService;
 
@@ -22,6 +23,9 @@ public class SignatureController {
 	@Autowired
 	private PaymentService paymentService;
 	
+	@Autowired
+	private PaymentQueue paymentQueue;
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Payment> findById(@PathVariable Integer id){
 		Payment payment = paymentService.findById(id);
@@ -30,7 +34,8 @@ public class SignatureController {
 	
 	@PostMapping(value = "/paymentteste")
 	public ResponseEntity<Object> insertt(@RequestBody Object obj){
-		System.out.println("Object" + obj);
+		System.out.println("Object" + obj.toString());
+		paymentQueue.send(obj.toString());
 		return ResponseEntity.ok().build();
 	}
 	
