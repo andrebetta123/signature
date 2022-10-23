@@ -18,6 +18,7 @@ public class SignatureApplication {
 	
     @Bean
     public Queue queue() {
-        return new Queue(paymentQueue, true);
+//        return new Queue(paymentQueue, true);
+        return new Queue("hello");
     }	
 }

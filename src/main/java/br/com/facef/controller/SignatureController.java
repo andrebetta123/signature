@@ -17,7 +17,7 @@ import br.com.facef.services.PaymentService;
 
 @RestController
 @RequestMapping(value = "/signature")
-public class SignatureResource {
+public class SignatureController {
 
 	@Autowired
 	private PaymentService paymentService;

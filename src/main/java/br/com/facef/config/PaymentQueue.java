@@ -1,14 +1,11 @@
 package br.com.facef.config;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
-
-import com.rabbitmq.client.impl.AMQImpl.Queue;
 
 @Component
 public class PaymentQueue {
@@ -16,10 +13,13 @@ public class PaymentQueue {
     @Autowired
     private RabbitTemplate rabbitTemplate;
  
-    @Autowired
-    private Queue queue;
- 
+//    @Autowired
+//    private Queue queue;
+// 
     public void send(String order) {
-        rabbitTemplate.convertAndSend(this.queue.getName(), order);
+//        rabbitTemplate.convertAndSend();
+//        rabbitTemplate.convertAndSend(this.queue.getName(), order);
+        String messageString = "Hello Rabbit @" + LocalDateTime.now().format(DateTimeFormatter.ISO_TIME);
+        rabbitTemplate.convertAndSend("hello", messageString);      
     }
 }
